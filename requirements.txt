@@ -1,0 +1,9 @@
+PyMuPDF
+langchain-community
+langchain
+langchain-classic
+langchain-core
+python-dotenv
+streamlit
+langchain-ollama
+chromadb
