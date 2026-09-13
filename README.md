@@ -1,6 +1,8 @@
 # UAE Visa Assistant
 <img width="1918" height="920" alt="image" src="https://github.com/user-attachments/assets/b7af4f3e-b9f3-452e-8da0-14d595fb68da" />
 
+Demo Recording:- https://drive.google.com/file/d/1LeBj3e3p6sXBI6aChU63Sb86QDhsDra-/view?usp=sharing
+
 An AI-powered chatbot that answers questions about UAE visa policies, requirements, and procedures using Retrieval-Augmented Generation (RAG) with LangChain.
 
 ## Overview
