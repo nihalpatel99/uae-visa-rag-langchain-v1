@@ -1,3 +1,9 @@
+import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 import streamlit as st
 from langchain.tools import tool
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -124,7 +130,7 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 
-# ── Session state ─────────────────────────────────────────────────────────────
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "agent" not in st.session_state:
@@ -133,13 +139,13 @@ if "agent_error" not in st.session_state:
     st.session_state.agent_error = None
 
 
-# ── Sidebar ───────────────────────────────────────────────────────────────────
+
 with st.sidebar:
    
 
     api_key     = st.text_input("OpenAI API Key", type="password", placeholder="sk-…")
     chat_model  = st.selectbox("Chat Model", ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"])
-    embed_model = st.selectbox("Embedding Model", ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"])
+    embed_model = st.selectbox("Embedding Model", ["text-embedding-3-small"])
     persist_dir = st.text_input("Chroma Directory", value="uae_visa_index")
 
     if st.button("Initialize Agent", use_container_width=True):
@@ -148,7 +154,7 @@ with st.sidebar:
         else:
             with st.spinner("Loading models & vector store…"):
                 try:
-                    embeddings  = OpenAIEmbeddings(model=embed_model, openai_api_key=api_key)
+                    embeddings  = OpenAIEmbeddings(model=embed_model, dimensions=1024, openai_api_key=api_key)
                     vectorstore = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
 
                     @tool(response_format="content_and_artifact")

@@ -1,11 +1,18 @@
+import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 from langchain_community.document_loaders import PyMuPDFLoader
 import os
-from langchain.tools import tool
+from dotenv import load_dotenv
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_ollama.chat_models import ChatOllama
+from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain_ollama.embeddings import OllamaEmbeddings
+
+load_dotenv()
 
 file_path = "دليل-الخدمات-إصدار-4.2-2024EN.pdf"
 loader = PyMuPDFLoader(file_path)
@@ -22,7 +29,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 # Split documents into smaller chunks
 split_documents = text_splitter.split_documents(docs)
 
-embeddings = OllamaEmbeddings(model="mxbai-embed-large")
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small", dimensions=1024)
 
 # Set directory for persistent storage
 persist_directory = "uae_visa_index"
